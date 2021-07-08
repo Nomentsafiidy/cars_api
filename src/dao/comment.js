@@ -11,7 +11,7 @@ var dao = require('./dao');
  */
 const insertComment = (connection, comment) => {
     const query = 'INSERT INTO `comment` (`user_id`, `car_id`, `content`, `createdAt`) VALUES (?, ?, ?, ?)';
-    const values = [comment.user_id, comment.car_id, comment.content, new Date().getTime()];
+    const values = [comment.user_id, comment.car_id, comment.content, new Date().getTime() / 1000];
     return dao.insert('insertComment', connection, query, values);
 };
 

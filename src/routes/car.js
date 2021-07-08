@@ -15,15 +15,11 @@ router.use(async function auth(req, res, next) {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         const connection = functions.getConnection();
         const token = req.headers.authorization.split(' ')[1];
-
-        console.log('Bearer');
         try {
             const data = jwt.verify(token, process.env.JWT_KEY);
             if (!isNaN(data.uid)) {
                 const userId = data.uid;
-                console.log('userId', userId);
                 const users = await daoUser.selectUser(connection, 'id = ?', userId);
-                console.log('Bearer', users);
                 req.user = users[0];
             }
         } catch (error) {

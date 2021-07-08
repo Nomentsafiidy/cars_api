@@ -19,7 +19,7 @@ module.exports = class CarService {
                     const car = cars[i];
                     const comments = await daoComment.selectComment(connection, `car_id = ${car.id}`);
                     if (comments) {
-                        car.comments = [];
+                        car.comments = comments;
                     }
                     carsTmp.push(car);
                 }
@@ -42,6 +42,27 @@ module.exports = class CarService {
         const response = { success: false };
         if (car.name && car.user_id && car.registration) {
             const [success, error, res] = await daoCar.insertCar(connection, car);
+            if (res && res.affectedRows === 1 && res.insertId) {
+                response.success = true;
+            }
+        } else {
+            throw new Error('Invalide params');
+        }
+        return response;
+    };
+
+    /**
+     * addUser
+     * @param auth: (boolean) when user is authenticate
+     * @return (Promise<ApiCarsResponse>)
+     */
+    addComment = async (comment) => {
+        console.log('addComment ***');
+        const connection = functions.getConnection();
+        const response = { success: false };
+        if (comment.user_id && comment.car_id && comment.content) {
+            const [success, error, res] = await daoComment.insertComment(connection, comment);
+            console.log(error);
             if (res && res.affectedRows === 1 && res.insertId) {
                 response.success = true;
             }
