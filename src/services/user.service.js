@@ -15,7 +15,8 @@ module.exports = class UserService {
         const values = [login];
         const res = await daoUser.selectUser(connection, 'email = ?', values);
         if (res) {
-            if (res.length === 1) {
+            console.log(res);
+            if (res.length >= 1) {
                 const user = res[0];
                 // Check password
                 if (await functions.checkPassword(password, user.password)) {

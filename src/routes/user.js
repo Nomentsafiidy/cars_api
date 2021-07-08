@@ -13,12 +13,10 @@ const UserService = require('../services/user.service');
  * login route
  */
 router.post('/login', async (req, res) => {
-    console.log('login work...', req.body);
     let response = { success: false };
     if (req.body && req.body.email && req.body.password) {
         const email = req.body.email;
         const password = req.body.password;
-        console.log('login work ss...');
         response = await new UserService().login(email, password);
     }
     return res.send(response);
