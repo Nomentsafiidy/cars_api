@@ -60,10 +60,7 @@ router.get('/getCars', async (req, res) => {
 
 router.post('/addCar', async (req, res) => {
     let response = { success: false };
-
-    console.log('userss', req.user);
     try {
-        console.log('usersss', req.user);
         if (req.user) {
             if (req.body && req.body.car) {
                 response = await carService.addCar(req.body.car);

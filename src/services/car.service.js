@@ -37,7 +37,6 @@ module.exports = class CarService {
      * @return (Promise<ApiCarsResponse>)
      */
     addCar = async (car) => {
-        console.log('addCar');
         const connection = functions.getConnection();
         const response = { success: false };
         if (car.name && car.user_id && car.registration) {
@@ -57,12 +56,10 @@ module.exports = class CarService {
      * @return (Promise<ApiCarsResponse>)
      */
     addComment = async (comment) => {
-        console.log('addComment ***');
         const connection = functions.getConnection();
         const response = { success: false };
         if (comment.user_id && comment.car_id && comment.content) {
             const [success, error, res] = await daoComment.insertComment(connection, comment);
-            console.log(error);
             if (res && res.affectedRows === 1 && res.insertId) {
                 response.success = true;
             }

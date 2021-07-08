@@ -28,7 +28,6 @@ const insertUser = (connection, user, password) => {
         .join(',');
     const query = 'INSERT INTO `user` (' + columns.join(',') + ') VALUES (' + prepare + ')';
     const values = [user.email, user.name, user.password];
-    // Logger.db('[user.ts] query:', query);
     return dao.insert('insertUser', connection, query, values);
 };
 

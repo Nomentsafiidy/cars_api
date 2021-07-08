@@ -17,7 +17,6 @@ const select = (method_name, connection, prefix_query, whereCondition = null, va
         query += ' WHERE ' + whereCondition;
     }
 
-    // Logger.db('[dao/dao - select - ' + method_name + '] query:', query);
     return new Promise((resolve, reject) => {
         connection.query(query + ';', values, (err, res) => {
             if (err) {

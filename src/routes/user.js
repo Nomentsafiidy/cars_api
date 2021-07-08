@@ -1,14 +1,7 @@
-// import { loginService } from './../services/login';
-
 const express = require('express');
 const router = express.Router();
 const UserService = require('../services/user.service');
 
-// middleware that is specific to this router
-// router.use(function timeLog(req, res, next) {
-//     console.log('Time: ', Date.now());
-//     next();
-// });
 /**
  * login route
  */
@@ -26,7 +19,7 @@ router.post('/login', async (req, res) => {
  * @param req.body.user : (user)
  * @body provider: (string) JSON of a provider object
  */
-router.post('/add', async (req, res) => {
+router.post('/addUser', async (req, res) => {
     let response = { success: false };
     try {
         if (req.body && req.body.user) {

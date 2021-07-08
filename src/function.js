@@ -16,7 +16,6 @@ const createConnection = () => {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
     };
-    // Logger.log('[function - createConnection] connectionOpts:', connectionOpts);
     const connection = mysql.createConnection(connectionOpts);
     return connection;
 };
@@ -26,7 +25,6 @@ const createConnection = () => {
  * @return (mysql.Connection)
  */
 const getConnection = () => {
-    console.log('getConnection');
     if (__connection == null) {
         __connection = createConnection();
         __connection.on('error', (err) => {
@@ -34,7 +32,6 @@ const getConnection = () => {
             __connection = null;
         });
     }
-    console.log('getConnection');
     return __connection;
 };
 
@@ -47,7 +44,6 @@ const endConnection = (force = true) => {
         if (force) {
             __connection.destroy();
             __connection = null;
-            // Logger.log('[endConnection] destroy, __connection:', __connection);
         } else {
             __connection.end();
             __connection = null;

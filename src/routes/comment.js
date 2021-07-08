@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 
 // middleware that is specific to this router
 router.use(async function auth(req, res, next) {
-    console.log('middleware');
     if (req.user) {
         delete req.user;
     }
@@ -19,7 +18,6 @@ router.use(async function auth(req, res, next) {
             const data = jwt.verify(token, process.env.JWT_KEY);
             if (!isNaN(data.uid)) {
                 const userId = data.uid;
-                console.log('userId', userId);
                 const users = await daoUser.selectUser(connection, 'id = ?', userId);
                 req.user = users[0];
             }
@@ -36,13 +34,10 @@ router.use(async function auth(req, res, next) {
  * @body provider: (string) JSON of a provider object
  */
 router.post('/addComment', async (req, res) => {
-    console.log('addComment');
     let response = { success: false };
     try {
-        console.log('addComment req.user', req.user);
         if (req.user) {
             if (req.body && req.body.comment) {
-                console.log(req.body.comment);
                 response = await carService.addComment(req.body.comment);
             } else {
                 response.message = 'Params Invalid';
